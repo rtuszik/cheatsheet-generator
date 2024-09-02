@@ -26,7 +26,8 @@ import resolveKey from './resolve-key.js'
  * Highlights the keys on the specified keyboard.
  * @param {Object} maps The built keys from buildKeyMaps
  */
-export default function highlightKeys (maps) {
+export default function highlightKeys (mapsAndCategories) { 
+  const { maps, categories } = mapsAndCategories
   // Retrieve the necessary values
   var platform = document.getElementById('platform-select').value
   platform = (['mac', 'darwin' ].includes(platform)) ? 'mac' : 'surface'
@@ -133,10 +134,31 @@ export default function highlightKeys (maps) {
     list.appendChild(item)
   }
 
+  var container = document.getElementById('shortcut-container')
+  container.innerHTML = ''
   if (map.length === 0) {
-    document.getElementById('shortcut-container').innerHTML = '<p>No shortcuts available</p>'
+    container.innerHTML = '<p>No shortcuts available</p>'
   } else {
-    document.getElementById('shortcut-container').innerHTML = ''
-    document.getElementById('shortcut-container').appendChild(list)
+    for (let category in categories) {
+      let categoryDiv = document.createElement('div')
+      categoryDiv.className = 'shortcut-category'
+      let categoryTitle = document.createElement('h3')
+      categoryTitle.textContent = category
+      categoryDiv.appendChild(categoryTitle)
+
+      let list = document.createElement('ul')
+      for (let cut of categories[category]) {
+        if (map.some(m => m.shortcut === cut.shortcut)) {
+          var sanitizedShortcut = cut.shortcut.replace('CmdOrCtrl', (platform === 'mac') ? 'Cmd' : 'Ctrl')
+          var item = document.createElement('li')
+          item.innerHTML = `<strong class="shortcut">${sanitizedShortcut}</strong>: ${cut.description}`
+          list.appendChild(item)
+        }
+      }
+      if (list.children.length > 0) {
+        categoryDiv.appendChild(list)
+        container.appendChild(categoryDiv)
+      }
+    }
   }
 }

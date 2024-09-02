@@ -68,7 +68,7 @@ async function runBuild () {
   template = template.replace(/\$keyboard_surface\$/g, keyboard_surface)
   template = template.replace(/\$layout_options\$/g, layoutNames)
   template = template.replace(/\$script\$/g, `<script>${script}</script>`)
-  template = template.replace(/\$data\$/g, `<script>var shortcuts = ${JSON.stringify(config.shortcuts)}\nvar keymaps = ${JSON.stringify(layouts)}</script>`)
+  template = template.replace(/\$data\$/g, `<script>var shortcuts = ${JSON.stringify(config.shortcuts)}var keymaps = ${JSON.stringify(layouts)}</script>`)
 
   await fs.writeFile(path.resolve(__dirname, '../dist/', sanitizeFilename(config.title) + '.htm'), template)
 }

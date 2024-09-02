@@ -122,9 +122,6 @@ export default class Cheatsheet {
 
     // Then, only show the relevant keyboard
     displayKeyboard(platform)
-
-    // Then, build the keymaps and highlight the keys
-    var maps = buildKeyMaps(shortcuts)
-    highlightKeys(maps)
-  }
+    var mapsAndCategories = buildKeyMaps(shortcuts)
+    highlightKeys(mapsAndCategories)
 }

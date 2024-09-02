@@ -118,3 +118,15 @@ footer a:hover {
   }
   footer, #controls { display: none; }
 }
+
+.shortcut-category {
+  margin-bottom: 20px;
+}
+
+.shortcut-category h3 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  color: #333;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}

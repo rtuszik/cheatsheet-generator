@@ -42,6 +42,22 @@ export default function buildKeyMaps (shortcuts) {
     'Cmd+Ctrl+Alt+Shift': []
   }
 
+  for (var platform in shortcuts) {
+    for (var cut in shortcuts[platform]) {
+      let shortcutInfo = shortcuts[platform][cut]
+      allKeys.push({ 
+        'shortcut': cut, 
+        'description': shortcutInfo.description,
+        'category': shortcutInfo.category || 'Uncategorized'
+      })
+      
+      if (!categories[shortcutInfo.category]) {
+        categories[shortcutInfo.category] = []
+      }
+      categories[shortcutInfo.category].push({ 'shortcut': cut, 'description': shortcutInfo.description })
+    }
+  }
+
   // Retrieve both crossplatform keys and the platform-specific ones.
   for (var cut in shortcuts.crossplatform) {
     allKeys.push({ 'shortcut': cut, 'description': shortcuts.crossplatform[cut] })
