@@ -4,3 +4,7 @@ include:
   - config: config.example.yml
     config-name: Example config
     artifact-name: example-cheatsheet
+
+  - config: cat.config.yml
+    config-name: Categories Config
+    artifact-name: Cat-Config 

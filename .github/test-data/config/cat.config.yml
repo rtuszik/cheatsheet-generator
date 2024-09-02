@@ -1,0 +1,20 @@
+Title: Example with Categories
+shortcuts:
+  crossplatform:
+    "Ctrl+C":
+      description: "Copy"
+      category: "Editing"
+    "Ctrl+V":
+      description: "Paste"
+      category: "Editing"
+    "Ctrl+S":
+      description: "Save"
+      category: "File Operations"
+  darwin:
+    "Cmd+Q":
+      description: "Quit"
+      category: "Application"
+  win32:
+    "Alt+F4":
+      description: "Quit"
+      category: "Application"
