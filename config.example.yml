@@ -1,14 +1,158 @@
-# Add a title for your cheatsheet
-title: My custom Cheatsheet
+title: Neovim Cheatsheet
+
 shortcuts:
-  # The script expects the keys crossplatform,
-  # darwin, win32, and linux, so don't remove them!
-  # If there are no keys, simply leave it empty.
-  crossplatform:
-    CmdOrCtrl+Comma: Open preferences
-  darwin:
-    Cmd+Ctrl+F: Toggle fullscreen
-  win32:
-    F11: Toggle fullscreen
-  linux:
-    F12: Toggle fullscreen
+  crossplatform: # Shortcuts that work on all platforms
+    Ctrl+Q:
+      description: Quit Neovim
+      category: General
+    Ctrl+S:
+      description: Save the current file
+      category: General
+    :w:
+      description: Save the current file (command mode)
+      category: General
+    :q:
+      description: Quit the current window (command mode)
+      category: General
+    :wq:
+      description: Save and quit the current window (command mode)
+      category: General
+    ZZ:
+      description: Save and quit the current window (command mode)
+      category: General
+    i:
+      description: Enter insert mode
+      category: Editing Modes
+    a:
+      description: Enter insert mode after the cursor
+      category: Editing Modes
+    o:
+      description: Open a new line below the cursor and enter insert mode
+      category: Editing Modes
+    O:
+      description: Open a new line above the cursor and enter insert mode
+      category: Editing Modes
+    Esc:
+      description: Exit insert mode and enter normal mode
+      category: Editing Modes
+    v:
+      description: Enter visual mode
+      category: Editing Modes
+    Ctrl+v:
+      description: Enter visual block mode
+      category: Editing Modes
+    V:
+      description: Enter visual line mode
+      category: Editing Modes
+    u:
+      description: Undo the last change
+      category: Editing
+    Ctrl+r:
+      description: Redo the last undone change
+      category: Editing
+    dd:
+      description: Delete the current line
+      category: Editing
+    yy:
+      description: Yank (copy) the current line
+      category: Editing
+    p:
+      description: Paste the yanked/deleted text after the cursor
+      category: Editing
+    P:
+      description: Paste the yanked/deleted text before the cursor
+      category: Editing
+    x:
+      description: Delete the character under the cursor
+      category: Editing
+    dw:
+      description: Delete from current position to the beginning of the next word
+      category: Editing
+    d$:
+      description: Delete from current position to the end of the line
+      category: Editing
+    ciw: 
+      description: Change inside word
+      category: Editing
+    caw:
+      description: Change a word
+      category: Editing
+    0:
+      description: Go to the beginning of the line
+      category: Navigation
+    $:
+      description: Go to the end of the line
+      category: Navigation
+    gg:
+      description: Go to the beginning of the file
+      category: Navigation
+    G:
+      description: Go to the end of the file
+      category: Navigation
+    w:
+      description: Move to the beginning of the next word
+      category: Navigation
+    b:
+      description: Move to the beginning of the previous word
+      category: Navigation
+    Ctrl+f:
+      description: Page down
+      category: Navigation
+    Ctrl+b:
+      description: Page up
+      category: Navigation
+    h:
+      description: Move left one character
+      category: Navigation
+    j:
+      description: Move down one line
+      category: Navigation
+    k:
+      description: Move up one line
+      category: Navigation
+    l:
+      description: Move right one character
+      category: Navigation
+    /search-term:
+      description: Search forward for "search-term"
+      category: Search 
+    ?search-term:
+      description: Search backward for "search-term"
+      category: Search
+    n:
+      description: Move to the next search match
+      category: Search
+    N:
+      description: Move to the previous search match
+      category: Search
+    :s/old/new/g:
+      description: Globally substitute "old" with "new" in the current line (command mode)
+      category: Search and Replace
+    :%s/old/new/g:
+      description: Globally substitute "old" with "new" in the entire file (command mode)
+      category: Search and Replace
+    Ctrl+ww:
+      description: Move to the next window
+      category: Window Management
+    Ctrl+wq:
+      description: Close the current window 
+      category: Window Management
+    :sp file.txt:
+      description: Split the window horizontally and open "file.txt" (command mode)
+      category: Window Management
+    :vsp file.txt:
+      description: Split the window vertically and open "file.txt" (command mode)
+      category: Window Management
+
+  darwin: # macOS specific shortcuts
+    Cmd+,:
+      description: Neovim preferences
+      category: Neovim
+  win32: # Windows specific shortcuts
+    Ctrl+,:
+      description: Neovim preferences
+      category: Neovim
+  linux: # Linux specific shortcuts
+    Ctrl+,:
+      description: Neovim preferences
+      category: Neovim

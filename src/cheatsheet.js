@@ -125,3 +125,4 @@ export default class Cheatsheet {
     var mapsAndCategories = buildKeyMaps(shortcuts)
     highlightKeys(mapsAndCategories)
 }
+}

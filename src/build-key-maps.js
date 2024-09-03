@@ -20,100 +20,113 @@
  * Generates useable keymaps from the shortcuts in memory.
  * @param {Object} shortcuts The shortcuts from memory to create the keymaps from.
  */
-export default function buildKeyMaps (shortcuts) {
+export default function buildKeyMaps(shortcuts) {
   // Highlight the given platform keys
-  var platform = document.getElementById('platform-select').value
+  var platform = document.getElementById("platform-select").value;
 
-  var allKeys = []
+  var allKeys = [];
   var maps = {
-    'vanilla': [], // Without any control key
-    'Ctrl': [],
-    'Cmd': [],
-    'Alt': [],
-    'Shift': [],
-    'Cmd+Alt': [],
-    'Cmd+Shift': [],
-    'Cmd+Alt+Shift': [],
-    'Ctrl+Alt': [],
-    'Ctrl+Shift': [],
-    'Ctrl+Alt+Shift': [],
-    'Cmd+Ctrl': [],
-    'Cmd+Ctrl+Alt': [],
-    'Cmd+Ctrl+Alt+Shift': []
-  }
+    vanilla: [], // Without any control key
+    Ctrl: [],
+    Cmd: [],
+    Alt: [],
+    Shift: [],
+    "Cmd+Alt": [],
+    "Cmd+Shift": [],
+    "Cmd+Alt+Shift": [],
+    "Ctrl+Alt": [],
+    "Ctrl+Shift": [],
+    "Ctrl+Alt+Shift": [],
+    "Cmd+Ctrl": [],
+    "Cmd+Ctrl+Alt": [],
+    "Cmd+Ctrl+Alt+Shift": [],
+  };
+
+  // Initialize the categories object
+  var categories = {};
 
   for (var platform in shortcuts) {
     for (var cut in shortcuts[platform]) {
-      let shortcutInfo = shortcuts[platform][cut]
-      allKeys.push({ 
-        'shortcut': cut, 
-        'description': shortcutInfo.description,
-        'category': shortcutInfo.category || 'Uncategorized'
-      })
-      
+      let shortcutInfo = shortcuts[platform][cut];
+      allKeys.push({
+        shortcut: cut,
+        description: shortcutInfo.description,
+        category: shortcutInfo.category || "Uncategorized",
+      });
+
       if (!categories[shortcutInfo.category]) {
-        categories[shortcutInfo.category] = []
+        categories[shortcutInfo.category] = [];
       }
-      categories[shortcutInfo.category].push({ 'shortcut': cut, 'description': shortcutInfo.description })
+      categories[shortcutInfo.category].push({
+        shortcut: cut,
+        description: shortcutInfo.description,
+      });
     }
   }
 
   // Retrieve both crossplatform keys and the platform-specific ones.
   for (var cut in shortcuts.crossplatform) {
-    allKeys.push({ 'shortcut': cut, 'description': shortcuts.crossplatform[cut] })
+    allKeys.push({ shortcut: cut, description: shortcuts.crossplatform[cut] });
   }
   for (var cut in shortcuts[platform]) {
-    allKeys.push({ 'shortcut': cut, 'description': shortcuts[platform][cut] })
+    allKeys.push({ shortcut: cut, description: shortcuts[platform][cut] });
   }
 
   // parse shortcuts
   for (var cut of allKeys) {
-    var keys = cut.shortcut.toLowerCase().split('+')
-    var altKey = keys.includes('alt') || keys.includes('option')
-    var ctrlKey = keys.includes('ctrl') || (keys.includes('cmdorctrl') && platform !== 'darwin')
-    var cmdKey = (keys.includes('cmd') || keys.includes('cmdorctrl')) && platform === 'darwin'
-    var shiftKey = keys.includes('shift')
+    var keys = cut.shortcut.toLowerCase().split("+");
+    var altKey = keys.includes("alt") || keys.includes("option");
+    var ctrlKey =
+      keys.includes("ctrl") ||
+      (keys.includes("cmdorctrl") && platform !== "darwin");
+    var cmdKey =
+      (keys.includes("cmd") || keys.includes("cmdorctrl")) &&
+      platform === "darwin";
+    var shiftKey = keys.includes("shift");
 
     // Sole/rogue command keys may be used with the mouse, so push it to the vanilla
     // map.
-    if (keys.length === 1 && [ 'ctrl', 'alt', 'cmd', 'shift', 'option' ].includes(keys[0])) {
-      maps['vanilla'].push(cut)
-      continue
+    if (
+      keys.length === 1 &&
+      ["ctrl", "alt", "cmd", "shift", "option"].includes(keys[0])
+    ) {
+      maps["vanilla"].push(cut);
+      continue;
     }
 
     // Now sort into the correct keymap
     if (altKey && ctrlKey && cmdKey && shiftKey) {
-      maps['Cmd+Ctrl+Alt+Shift'].push(cut)
+      maps["Cmd+Ctrl+Alt+Shift"].push(cut);
     } else if (altKey && ctrlKey && cmdKey && !shiftKey) {
-      maps['Cmd+Ctrl+Alt'].push(cut)
+      maps["Cmd+Ctrl+Alt"].push(cut);
     } else if (ctrlKey && cmdKey && !altKey && !shiftKey) {
-      maps['Cmd+Ctrl'].push(cut)
+      maps["Cmd+Ctrl"].push(cut);
     } else if (ctrlKey && altKey && shiftKey && !cmdKey) {
-      maps['Ctrl+Alt+Shift'].push(cut)
+      maps["Ctrl+Alt+Shift"].push(cut);
     } else if (ctrlKey && !shiftKey && !cmdKey && altKey) {
-      maps['Ctrl+Alt'].push(cut)
+      maps["Ctrl+Alt"].push(cut);
     } else if (ctrlKey && altKey && !cmdKey && !shiftKey) {
-      maps['Ctrl+Alt'].push(cut)
+      maps["Ctrl+Alt"].push(cut);
     } else if (ctrlKey && shiftKey && !cmdKey && !altKey) {
-      maps['Ctrl+Shift'].push(cut)
+      maps["Ctrl+Shift"].push(cut);
     } else if (cmdKey && altKey && shiftKey && !ctrlKey) {
-      maps['Cmd+Alt+Shift'].push(cut)
+      maps["Cmd+Alt+Shift"].push(cut);
     } else if (cmdKey && shiftKey && !altKey && !ctrlKey) {
-      maps['Cmd+Shift'].push(cut)
+      maps["Cmd+Shift"].push(cut);
     } else if (cmdKey && altKey && !ctrlKey && !shiftKey) {
-      maps['Cmd+Alt'].push(cut)
+      maps["Cmd+Alt"].push(cut);
     } else if (altKey && !ctrlKey && !cmdKey && !shiftKey) {
-      maps['Alt'].push(cut)
+      maps["Alt"].push(cut);
     } else if (cmdKey && !ctrlKey && !altKey && !shiftKey) {
-      maps['Cmd'].push(cut)
+      maps["Cmd"].push(cut);
     } else if (ctrlKey && !cmdKey && !altKey && !shiftKey) {
-      maps['Ctrl'].push(cut)
+      maps["Ctrl"].push(cut);
     } else if (shiftKey && !cmdKey && !altKey && !ctrlKey) {
-      maps['Shift'].push(cut)
+      maps["Shift"].push(cut);
     } else {
-      maps['vanilla'].push(cut)
+      maps["vanilla"].push(cut);
     }
   }
 
-  return maps // Return the parsed map
+  return { maps, categories }; // Return both maps and categories
 }
