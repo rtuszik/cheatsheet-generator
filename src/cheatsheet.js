@@ -122,7 +122,13 @@ export default class Cheatsheet {
 
     // Then, only show the relevant keyboard
     displayKeyboard(platform)
-    var mapsAndCategories = buildKeyMaps(shortcuts)
+
+    // Get command mode and leader key states directly
+    var commandMode = document.getElementById('command-mode').checked || false;
+    var leaderKey = document.getElementById('leader-key').checked || false;   
+
+    // Pass the states to highlightKeys (no need to modify the function itself)
+    var mapsAndCategories = buildKeyMaps(shortcuts, commandMode, leaderKey)
     highlightKeys(mapsAndCategories)
 }
 }
